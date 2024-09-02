@@ -1,37 +1,28 @@
 pipeline {
     agent any
-
-    environment {
-        DOCKER_IMAGE = 'my-python-app'
-        DOCKER_TAG = 'latest'
-        DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
-    }
-
     stages {
         stage('Getting Git Repo') {
             steps {
-                git branch: 'main', credentialsId: 'mycredentials', url: 'https://github.com/kartikeyametikoti/java_project'
+                git url: 'https://github.com/kartikeyametikoti/java_project', credentialsId: 'mycredentials'
             }
         }
-
         stage('Docker Image Build') {
             steps {
                 script {
-                    // Build Docker image
-                    docker.build("${DOCKER_IMAGE_NAME}")
+                    docker.build('my-python-app:latest')
                 }
             }
         }
-
         stage('Test') {
             steps {
                 script {
-                    // Run Docker container
-                    def container = docker.run(
-                        "${DOCKER_IMAGE_NAME}",
-                        '-d -p 5000:5000', // Run detached and map port 5000
-                        true // Bind the container to the pipeline
-                    )
+                    // Run the Docker container
+                    def app = docker.image('my-python-app:latest')
+                    app.withRun('-d -p 5000:5000') { c ->
+                        // Implement your test steps here
+                        // For example, you might use a curl command to check if the app is running
+                        sh 'curl http://localhost:5000'
+                    }
                 }
             }
         }
