@@ -26,7 +26,7 @@ pipeline{
             {
                 script{
                 def container = docker.run(
-                        "${DOCKER_IMAGE_NAME}",
+                        "${DOCKER_IMAGE_NAME}"),
                         '-d -p 5000:5000',
                     }
             }
