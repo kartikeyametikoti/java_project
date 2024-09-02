@@ -23,7 +23,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image('my-python-app:latest').run('-d -p 5000:5000')
+                    docker.image('my-python-app:latest').run('-d -p 2000:5000')
                 }
             }
         }
