@@ -11,14 +11,14 @@ pipeline{
         {
             steps{
                 bat 'javac main.java'
-                bat 'java main'
+                
             }
         }
         stage('test')
         {
             steps
             {
-                sh 'java main'
+                bat 'java main'
             }
         }
        
