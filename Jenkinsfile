@@ -24,11 +24,14 @@ pipeline{
         {
             steps
             {
-                script{
-                def container = docker.run(
-                        "${DOCKER_IMAGE_NAME}"),
-                        '-d -p 5000:5000',
-                    }
+               script {
+                    // Run Docker container
+                    def container = docker.run(
+                        "${DOCKER_IMAGE_NAME}",
+                        '-d -p 5000:5000', // Run detached and map port 5000
+                        true // Bind the container to the pipeline
+                    )
+               }
             }
         }
        
