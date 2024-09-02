@@ -1,8 +1,9 @@
-FROM python:3.8-slim
-WORKDIR /myapp
-COPY app.py ./
+FROM python:3.12.3
+WORKDIR /kiran
+COPY * ./
 COPY requirements.txt ./
-RUN apt update
-RUN pip install -r requirements.txt
+RUN apt update && apt upgrade -y
+RUN apt install python3 -y
+RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
-CMD ["python","app.py"]
+CMD ["python3","app.py"]
