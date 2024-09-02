@@ -22,25 +22,12 @@ pipeline {
                 }
             }
         }
-
-        stage('Test') {
+        stage('Run Docker Container') {
             steps {
                 script {
-                    // Run Docker container
-                    def container = docker.run(
-                        "${DOCKER_IMAGE_NAME}",
-                        '-d -p 5000:5000', // Run detached and map port 5000
-                        true // Bind the container to the pipeline
-                    )
-                    
-                    // Optional: Add a sleep time to allow the container to start
-                    sleep(10)
-                    
-                    // Optionally, you can run tests against your container
-                    sh 'curl http://localhost:5000'
-                    
-                    // Stop and remove the container after the tests
-                    container.stop()
+                    def myImage = docker.image('my-python-app:latest')
+                    myImage.pull()  // Ensure the image is pulled
+                    myImage.run('-d -p 5000:5000')
                 }
             }
         }
