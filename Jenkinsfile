@@ -14,6 +14,13 @@ pipeline{
                 bat 'java main'
             }
         }
+        stage('test')
+        {
+            steps
+            {
+                sh 'java main'
+            }
+        }
        
     }
 }
