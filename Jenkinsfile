@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'my-python-app2'
+        DOCKER_IMAGE = 'my-python-app3'
         DOCKER_TAG = 'latest'
         DOCKER_IMAGE_NAME = "${DOCKER_IMAGE}:${DOCKER_TAG}"
     }
@@ -23,7 +23,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image('my-python-app:latest').run('-d -p 3000:5000')
+                    docker.image('my-python-app:latest').run('-d -p 1500:5000')
                 }
             }
         }
