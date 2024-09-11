@@ -16,14 +16,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('my-python-app:latest')
+                    docker.build('my-python-app3:latest')
                 }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    docker.image('my-python-app:latest').run('-d -p 1500:5000')
+                    docker.image('my-python-app3:latest').run('-d -p 1500:5000')
                 }
             }
         }
